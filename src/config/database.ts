@@ -16,6 +16,4 @@ export async function connectDb(): Promise<void> {
   }
 }
 
-const db = mongoClient.db("pharmastore");
-
-export default db;
+export const db = mongoClient.db("pharmastore");

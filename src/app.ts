@@ -1,10 +1,11 @@
 import express, { json, Express } from "express";
 import cors from "cors";
 import { connectDb } from "@/config";
+import { productRouter } from "./routers";
 
 const app = express();
 
-app.use(json()).use(cors());
+app.use(json()).use(cors()).use("/products", productRouter);
 
 export async function init(): Promise<Express> {
   await connectDb();
