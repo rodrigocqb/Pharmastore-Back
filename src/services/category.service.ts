@@ -11,6 +11,8 @@ async function createCategory(name: string): Promise<void> {
   const category = await categoryRepository.findCategoryByName(name);
 
   if (category) throw conflictError();
+
+  await categoryRepository.insertCategory(name);
 }
 
-export const categoryService = { getAllCategories };
+export const categoryService = { getAllCategories, createCategory };
