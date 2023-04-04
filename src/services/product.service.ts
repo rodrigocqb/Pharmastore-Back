@@ -1,9 +1,18 @@
+import { conflictError } from "@/errors";
 import { productRepository } from "@/repositories";
-import { Product } from "@/types";
+import { CreateProduct, Product } from "@/types";
 import { WithId } from "mongodb";
 
 async function getAllProducts(): Promise<WithId<Product>[]> {
   return productRepository.findAllProducts();
 }
 
-export const productService = { getAllProducts };
+async function createProduct(newProduct: CreateProduct): Promise<void> {
+  const product = await productRepository.findProductByName(newProduct.name);
+
+  if (product) throw conflictError();
+
+  await productRepository.insertProduct(newProduct);
+}
+
+export const productService = { getAllProducts, createProduct };

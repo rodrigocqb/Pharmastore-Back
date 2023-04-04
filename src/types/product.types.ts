@@ -7,3 +7,5 @@ export type Product = {
   price: number;
   category: Category;
 };
+
+export type CreateProduct = Omit<Product, "_id">;

@@ -10,6 +10,9 @@ export async function connectDb(): Promise<void> {
     await mongoClient.connect();
     /* eslint-disable-next-line no-console */
     console.log("MongoDB connected");
+    await db
+      .collection("products")
+      .createIndex({ name: "text", "category.name": "text" });
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.log(error.message);
