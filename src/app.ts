@@ -1,4 +1,5 @@
 import express, { json, Express } from "express";
+import "express-async-errors";
 import cors from "cors";
 import { connectDb } from "@/config";
 import { categoryRouter, productRouter } from "./routers";
