@@ -1,5 +1,5 @@
 import { db } from "@/config";
-import { Category } from "@/types";
+import { Category, CreateCategory } from "@/types";
 
 async function findAllCategories() {
   const categories = await db
@@ -9,4 +9,17 @@ async function findAllCategories() {
   return categories;
 }
 
-export const categoryRepository = { findAllCategories };
+async function insertCategory(name: string) {
+  await db.collection<CreateCategory>("categories").insertOne({ name });
+  return;
+}
+
+async function findCategoryByName(name: string) {
+  return db.collection<Category>("categories").findOne({ name });
+}
+
+export const categoryRepository = {
+  findAllCategories,
+  insertCategory,
+  findCategoryByName,
+};
