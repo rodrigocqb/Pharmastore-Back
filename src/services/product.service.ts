@@ -1,4 +1,4 @@
-import { conflictError } from "@/errors";
+import { badRequestError, conflictError, notFoundError } from "@/errors";
 import { productRepository } from "@/repositories";
 import { CreateProduct, Product } from "@/types";
 import { WithId } from "mongodb";
@@ -15,4 +15,26 @@ async function createProduct(newProduct: CreateProduct): Promise<void> {
   await productRepository.insertProduct(newProduct);
 }
 
-export const productService = { getAllProducts, createProduct };
+async function searchProductsByQueryParam(
+  searchParam: string,
+): Promise<WithId<Product>[]> {
+  validateQueryParam(searchParam);
+
+  const products = await productRepository.searchProductsByQueryParam(
+    searchParam,
+  );
+
+  if (products.length === 0) throw notFoundError();
+
+  return products;
+}
+
+function validateQueryParam(query: string) {
+  if (!query) throw badRequestError();
+}
+
+export const productService = {
+  getAllProducts,
+  createProduct,
+  searchProductsByQueryParam,
+};
