@@ -5,6 +5,7 @@ export type Product = {
   _id: ObjectId;
   name: string;
   price: number;
+  image: string;
   category: Category;
 };
 
