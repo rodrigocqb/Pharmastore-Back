@@ -18,7 +18,7 @@ async function findProductByName(name: string) {
 async function searchProductsByQueryParam(queryParam: string) {
   const products = await db
     .collection<Product>("products")
-    .find({ $text: { $search: queryParam, $language: "pt" } })
+    .find({ $text: { $search: `\"${queryParam}\"`, $language: "en" } })
     .toArray();
 
   return products;

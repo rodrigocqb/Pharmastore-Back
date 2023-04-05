@@ -10,7 +10,7 @@ const productRouter = Router();
 
 productRouter
   .get("/", getAllProducts)
-  .get("/:id", getProductById)
+  .get("/product/:id", getProductById)
   .get("/search", getProductsByQueryParam)
   .post("/", postCreateProduct);
 
