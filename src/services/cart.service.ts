@@ -1,6 +1,7 @@
 import { notFoundError } from "@/errors";
 import { cartRepository, productRepository } from "@/repositories";
-import { CreateCartItem, Product } from "@/types";
+import { CartItem, CreateCartItem } from "@/types";
+import { WithId } from "mongodb";
 
 async function addItemToCart(cartItem: CreateCartItem): Promise<void> {
   await checkIfItemExists(cartItem.product.name);
@@ -14,4 +15,14 @@ async function checkIfItemExists(productName: string): Promise<void> {
   if (!product) throw notFoundError();
 }
 
-export const cartService = { addItemToCart };
+async function getUserCart(
+  user_identifier: string,
+): Promise<WithId<CartItem>[]> {
+  const cart = await cartRepository.findUserCart(user_identifier);
+
+  if (cart.length === 0) throw notFoundError();
+
+  return cart;
+}
+
+export const cartService = { addItemToCart, getUserCart };
