@@ -1,4 +1,4 @@
-import { badRequestError, conflictError, notFoundError } from "@/errors";
+import { badRequestError, conflictError } from "@/errors";
 import { productRepository } from "@/repositories";
 import { CreateProduct, Product } from "@/types";
 import { WithId } from "mongodb";
