@@ -10,6 +10,14 @@ export async function getAllProducts(req: Request, res: Response) {
   return res.status(httpStatus.OK).send(catalog);
 }
 
+export async function getProductById(req: Request, res: Response) {
+  const { id } = req.params as { id: string };
+
+  const product = await productService.getProductById(id);
+
+  return res.status(httpStatus.OK).send(product);
+}
+
 export async function postCreateProduct(req: Request, res: Response) {
   const newProduct = req.body as CreateProduct;
 
