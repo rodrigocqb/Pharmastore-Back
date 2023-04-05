@@ -24,8 +24,6 @@ async function searchProductsByQueryParam(
     searchParam,
   );
 
-  if (products.length === 0) throw notFoundError();
-
   return products;
 }
 
