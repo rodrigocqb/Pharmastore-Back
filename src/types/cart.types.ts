@@ -8,3 +8,8 @@ export type CartItem = {
 };
 
 export type CreateCartItem = Omit<CartItem, "_id">;
+
+export type DeleteItemParams = {
+  user_identifier: string;
+  productName: string;
+};

@@ -1,6 +1,6 @@
 import { notFoundError } from "@/errors";
 import { cartRepository, productRepository } from "@/repositories";
-import { CartItem, CreateCartItem } from "@/types";
+import { CartItem, CreateCartItem, DeleteItemParams } from "@/types";
 import { WithId } from "mongodb";
 
 async function addItemToCart(cartItem: CreateCartItem): Promise<void> {
@@ -25,4 +25,8 @@ async function getUserCart(
   return cart;
 }
 
-export const cartService = { addItemToCart, getUserCart };
+async function deleteItemFromCart(deleteItemParams: DeleteItemParams) {
+  await cartRepository.deleteItemFromCart(deleteItemParams);
+}
+
+export const cartService = { addItemToCart, getUserCart, deleteItemFromCart };
