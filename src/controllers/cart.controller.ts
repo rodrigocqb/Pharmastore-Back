@@ -1,5 +1,5 @@
 import { cartService } from "@/services";
-import { CreateCartItem, DeleteItemParams } from "@/types";
+import { CreateCartItem } from "@/types";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
@@ -12,7 +12,7 @@ export async function postAddItemToCart(req: Request, res: Response) {
 }
 
 export async function getUserCart(req: Request, res: Response) {
-  const { user_identifier } = req.body as { user_identifier: string };
+  const user_identifier = req.header("Authorization");
 
   const cart = await cartService.getUserCart(user_identifier);
 
@@ -20,9 +20,10 @@ export async function getUserCart(req: Request, res: Response) {
 }
 
 export async function deleteItemFromCart(req: Request, res: Response) {
-  const deleteParams = req.body as DeleteItemParams;
+  const user_identifier = req.header("Authorization");
+  const productName = req.header("productName");
 
-  await cartService.deleteItemFromCart(deleteParams);
+  await cartService.deleteItemFromCart({ user_identifier, productName });
 
   return res.sendStatus(httpStatus.NO_CONTENT);
 }
