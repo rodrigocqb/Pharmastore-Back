@@ -20,8 +20,6 @@ async function getUserCart(
 ): Promise<WithId<CartItem>[]> {
   const cart = await cartRepository.findUserCart(user_identifier);
 
-  if (cart.length === 0) throw notFoundError();
-
   return cart;
 }
 
