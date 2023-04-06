@@ -12,7 +12,7 @@ async function findUserCart(user_identifier: string) {
 async function deleteItemFromCart(deleteItemParams: DeleteItemParams) {
   return db.collection<CartItem>("carts").deleteOne({
     user_identifier: deleteItemParams.user_identifier,
-    product: { name: deleteItemParams.productName },
+    "product.name": deleteItemParams.productName,
   });
 }
 
